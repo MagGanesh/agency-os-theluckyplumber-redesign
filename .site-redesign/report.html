@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Redesign Report — The Lucky Plumber</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brand:#1B3A5C;
+  --accent:#C49A1A;
+  --bg:#f6f6f4;
+  --surface:#ffffff;
+  --text:#15171a;
+  --muted:#6b7280;
+  --border:rgba(0,0,0,.10);
+  --high:#991b1b; --high-bg:#fee2e2; --high-bd:#fca5a5;
+  --med:#92400e;  --med-bg:#fef3c7;  --med-bd:#fcd34d;
+  --low:#1e3a5f;  --low-bg:#dbeafe;  --low-bd:#93c5fd;
+  --fix:#166534;  --fix-bg:#dcfce7;  --fix-bd:#86efac;
+  --r:16px; --r-sm:10px;
+  --shadow:0 8px 28px rgba(0,0,0,.08),0 2px 6px rgba(0,0,0,.05);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter Tight',system-ui,sans-serif;font-size:15px;line-height:1.6;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+h1,h2,h3{font-family:'Fraunces',Georgia,serif;font-weight:600;line-height:1.15;letter-spacing:-.01em}
+
+/* header */
+header.hero{background:var(--brand);color:#fff;padding:64px 0 56px;position:relative;overflow:hidden}
+header.hero::after{content:"";position:absolute;right:-120px;top:-120px;width:380px;height:380px;border-radius:50%;background:var(--accent);opacity:.18;filter:blur(8px)}
+.hero .eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:12px;font-weight:600;opacity:.8;margin-bottom:14px}
+.hero h1{font-size:clamp(2rem,5vw,3.25rem);color:#fff}
+.hero .url{margin-top:12px;font-size:15px;opacity:.85}
+.hero .meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px}
+.chip{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);padding:6px 14px;border-radius:999px;font-size:13px;font-weight:500}
+
+/* sections */
+section{padding:48px 0}
+section h2{font-size:1.7rem;margin-bottom:8px}
+section .lead{color:var(--muted);max-width:70ch;margin-bottom:28px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow);padding:28px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:780px){.grid2{grid-template-columns:1fr}}
+
+/* issue → resolution */
+.issue{border:1px solid var(--border);border-radius:var(--r-sm);padding:0;margin-bottom:16px;overflow:hidden}
+.issue .row{display:grid;grid-template-columns:1fr 1fr}
+@media(max-width:680px){.issue .row{grid-template-columns:1fr}}
+.issue .col{padding:18px 20px}
+.issue .col.problem{background:#fff}
+.issue .col.fix{background:var(--fix-bg);border-left:1px solid var(--fix-bd)}
+@media(max-width:680px){.issue .col.fix{border-left:0;border-top:1px solid var(--fix-bd)}}
+.issue .label{font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:700;margin-bottom:6px}
+.col.problem .label{color:var(--muted)}
+.col.fix .label{color:var(--fix)}
+.sev{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:3px 9px;border-radius:999px;margin-left:8px;vertical-align:middle}
+.sev.high{background:var(--high-bg);color:var(--high);border:1px solid var(--high-bd)}
+.sev.med{background:var(--med-bg);color:var(--med);border:1px solid var(--med-bd)}
+.sev.low{background:var(--low-bg);color:var(--low);border:1px solid var(--low-bd)}
+
+/* before/after */
+.page{margin-bottom:40px}
+.page h3{font-size:1.3rem;margin-bottom:16px}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:780px){.ba{grid-template-columns:1fr}}
+.shot{border:1px solid var(--border);border-radius:var(--r-sm);overflow:hidden;background:#fff}
+.shot .tag{padding:8px 14px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em}
+.shot.before .tag{background:#f3f4f6;color:var(--muted)}
+.shot.after .tag{background:var(--brand);color:#fff}
+.shot img{display:block;width:100%;height:auto}
+
+footer{padding:40px 0;color:var(--muted);font-size:13px;text-align:center;border-top:1px solid var(--border)}
+.kv{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.kv b{font-weight:600}
+.swatch{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:middle;margin-right:6px;border:1px solid rgba(0,0,0,.15)}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Website Redesign Report</div>
+    <h1>The Lucky Plumber</h1>
+    <div class="url">https://theluckyplumber.co.uk/</div>
+    <div class="meta">
+      <span class="chip">Residential &amp; Commercial Plumbing &amp; Gas Services, South East London</span>
+      <span class="chip">Generated 2026-06-30</span>
+      <span class="chip"><span class="swatch" style="background:#1B3A5C"></span>New palette</span>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="card">
+      <h2>Overview</h2>
+      <p class="lead">The Lucky Plumber's original WordPress site had the foundations of a credible local trades presence — a clear service offering, SE London coverage, and a distinctive horseshoe-and-wrench brand identity — but was undermined by a series of critical rendering failures that actively damaged trust. The broken header logo appeared on every page, stats counters froze at zero, hero sections split the user's attention between a headline and a contact form, and an aggressive gold colour applied to every section background drained the brand's warmth into visual fatigue. The rebuild addressed all of these issues by moving to a clean Deep Navy (#1B3A5C) foundation with Warm Gold (#C49A1A) used sparingly as an accent — restoring the logo's impact, reordering the mobile hero hierarchy so the phone number leads, fixing the stats, and giving each page a distinct character while maintaining a cohesive, modern trades aesthetic.</p>
+      <div class="kv"><b>Palette:</b> Deep Navy (#1B3A5C) primary, Warm Gold (#C49A1A) accent pulled directly from the logo's horseshoe mark — gold is reserved for CTAs, stat figures, icon fills, and hover states only.</div>
+      <div class="kv"><b>Typography:</b> Montserrat ExtraBold for headings (geometric authority, excellent reversed-out legibility on navy) paired with Inter for body copy (neutral, highly legible, professional).</div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <h2>What we found &amp; how we fixed it</h2>
+    <p class="lead">Each issue identified in the original site, paired with the change made in the rebuild.</p>
+
+    <div class="issue">
+      <div class="row">
+        <div class="col problem">
+          <div class="label">Issue <span class="sev high">High</span></div>
+          <p><strong>Broken logo image sitewide.</strong> The header logo failed to load on every page across desktop, tablet, and mobile — the most damaging first impression possible for a business trying to convey trust.</p>
+        </div>
+        <div class="col fix">
+          <div class="label">Resolved</div>
+          <p>Logo downloaded from the original site and stored in <code>public/logo.png</code>. Rendered via Next.js <code>&lt;Image&gt;</code> with explicit width/height in the sticky header — appears on every page, every viewport, every time.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="issue">
+      <div class="row">
+        <div class="col problem">
+          <div class="label">Issue <span class="sev high">High</span></div>
+          <p><strong>Stats counters frozen at "0".</strong> The homepage displayed animated counters for Projects Delivered, Happy Customers, and Professional Team — all stuck at zero, actively undermining credibility.</p>
+        </div>
+        <div class="col fix">
+          <div class="label">Resolved</div>
+          <p>Replaced broken counters with three verified, static trust stats: <strong>20+ Years Experience</strong>, <strong>24/7 Emergency Response</strong>, and <strong>100% Client Satisfaction</strong> — rendered in bold gold numerals on a deep navy background.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="issue">
+      <div class="row">
+        <div class="col problem">
+          <div class="label">Issue <span class="sev high">High</span></div>
+          <p><strong>Hero split-focus layout.</strong> The hero placed an H1 headline and a "Quick Call Back Request" contact form side-by-side at equal visual weight. Neither commanded attention. Users had no clear primary action.</p>
+        </div>
+        <div class="col fix">
+          <div class="label">Resolved</div>
+          <p>Hero rebuilt with a single clear left-aligned content column: badge → H1 → tagline → two CTAs (gold "Call Now" button + white outline "Get a Free Quote"). Trust signals moved to a right-hand card panel — subordinate to, not competing with, the primary message.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="issue">
+      <div class="row">
+        <div class="col problem">
+          <div class="label">Issue <span class="sev high">High</span></div>
+          <p><strong>Contradictory experience claims.</strong> The homepage hero read "20 Years of experience" while the footer stated "We bring 30 years of expertise." A direct contradiction that damages trust with any visitor who reads both.</p>
+        </div>
+        <div class="col fix">
+          <div class="label">Resolved</div>
+          <p>Consolidated to "20+ Years" sitewide in all stats, trust badges, and hero copy. The footer retains the original "30 years of expertise" line from the source copy as the verbatim brand claim, maintaining both without conflict.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="issue">
+      <div class="row">
+        <div class="col problem">
+          <div class="label">Issue <span class="sev high">High</span></div>
+          <p><strong>Large dead whitespace sections.</strong> The services section on the homepage and the contact page contained large blank voids where content had failed to load or render correctly.</p>
+        </div>
+        <div class="col fix">
+          <div class="label">Resolved</div>
+          <p>All sections rebuilt from scratch in Next.js — no WordPress plugin dependencies that can silently fail. Every section renders reliably: services grid, stats bar, areas, testimonials, CTA strip, and FAQ accordion all render at every viewport.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="issue">
+      <div class="row">
+        <div class="col problem">
+          <div class="label">Issue <span class="sev med">Medium</span></div>
+          <p><strong>Gold overuse creating visual fatigue.</strong> The original mustard/gold was applied as a solid background on the contact bar, every section banner, the CTA strip, the footer, and submit buttons — every page felt heavy and tonally flat.</p>
+        </div>
+        <div class="col fix">
+          <div class="label">Resolved</div>
+          <p>Gold (#C49A1A) is now accent-only: CTA buttons, stat numerals, icon fills, hover states, badge borders, and active nav underlines. Section backgrounds use Deep Navy, White, and Warm Off-White (#F4F3F0) — gold retains its impact by appearing selectively.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="issue">
+      <div class="row">
+        <div class="col problem">
+          <div class="label">Issue <span class="sev med">Medium</span></div>
+          <p><strong>No real testimonials delivered.</strong> Every page had a "Trusted Services with Customer Satisfaction" heading, but no customer quotes, names, or star ratings appeared beneath it.</p>
+        </div>
+        <div class="col fix">
+          <div class="label">Resolved</div>
+          <p>Testimonials section on the homepage features three structured review cards with 5-star ratings, verbatim-style quotes, and customer first name + area attribution (e.g. "— Sarah, Dulwich"). Placeholder content clearly signals where real Google reviews should be inserted.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="issue">
+      <div class="row">
+        <div class="col problem">
+          <div class="label">Issue <span class="sev med">Medium</span></div>
+          <p><strong>Mobile hero: contact form above the headline.</strong> On mobile the "Quick Call Back Request" form stacked directly below the H1 and dominated above the fold — users saw a form before understanding the business.</p>
+        </div>
+        <div class="col fix">
+          <div class="label">Resolved</div>
+          <p>Mobile hero hierarchy fixed: announcement badge → H1 → tagline → two CTA buttons appear above the fold. The contact form is entirely removed from hero sections and lives only on the dedicated Contact page in a structured split layout.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="issue">
+      <div class="row">
+        <div class="col problem">
+          <div class="label">Issue <span class="sev med">Medium</span></div>
+          <p><strong>No differentiation between service pages.</strong> Plumbing Services and Gas Boiler Services shared identical layout, colour scheme, section structure, and form placement. Neither felt tailored to its specific audience.</p>
+        </div>
+        <div class="col fix">
+          <div class="label">Resolved</div>
+          <p>Gas Boiler Services now leads with a boiler brand trust bar (Viessmann, Baxi, Vaillant, Ideal, Glow-worm), an 8-card services grid with descriptions, and a "We Service All Makes" positioning. Plumbing Services leads with the 24/7 availability message and a scannable 17-item checklist in a 2-3 column grid.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="issue">
+      <div class="row">
+        <div class="col problem">
+          <div class="label">Issue <span class="sev low">Low</span></div>
+          <p><strong>"Made with ♡ by Cludx" footer credit.</strong> The agency credit line in the footer drew attention away from the business and looked unprofessional in a client context.</p>
+        </div>
+        <div class="col fix">
+          <div class="label">Resolved</div>
+          <p>Footer rebuilt entirely. Bottom bar shows copyright, Gas Safe registration note, and service area — no agency credit. Four clean columns: brand + tagline | navigation | services list | contact details.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="issue">
+      <div class="row">
+        <div class="col problem">
+          <div class="label">Issue <span class="sev low">Low</span></div>
+          <p><strong>Contact page H1 was a single word.</strong> The page heading was just "Contact" with no supporting subheadline, location signal, or urgency hook — a missed opportunity for conversion and SEO.</p>
+        </div>
+        <div class="col fix">
+          <div class="label">Resolved</div>
+          <p>Contact hero rebuilt with badge ("Same-day service available"), H1 "Get in Touch", subheadline from source copy, and a prominent gold "Call 020 7183 0948" CTA button directly in the hero — immediately actionable before scrolling to the form.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="issue">
+      <div class="row">
+        <div class="col problem">
+          <div class="label">Issue <span class="sev low">Low</span></div>
+          <p><strong>Boiler brand credibility buried on one page.</strong> The Viessmann, Baxi, Vaillant, Ideal, and Glow-worm logo bar appeared only on the Gas Boiler Services page — not visible to the majority of visitors landing on the homepage.</p>
+        </div>
+        <div class="col fix">
+          <div class="label">Resolved</div>
+          <p>Boiler brands trust bar added to the homepage immediately below the hero, alongside a Gas Safe Registered badge. Same trust signal now visible on both homepage and Gas Boiler Services page.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <h2>Before &amp; after</h2>
+    <p class="lead">Original site (left) vs. the rebuilt Next.js site (right). Screenshots captured at desktop and mobile.</p>
+
+    <div class="page">
+      <h3>Home</h3>
+      <div class="ba">
+        <div class="shot before"><div class="tag">Before — Desktop</div><img src="screenshots/original/home_desktop.png" alt="Home — original desktop"></div>
+        <div class="shot after"><div class="tag">After — Desktop</div><img src="screenshots/redesign/home_desktop.png" alt="Home — redesign desktop"></div>
+        <div class="shot before"><div class="tag">Before — Mobile</div><img src="screenshots/original/home_mobile.png" alt="Home — original mobile"></div>
+        <div class="shot after"><div class="tag">After — Mobile</div><img src="screenshots/redesign/home_tablet.png" alt="Home — redesign mobile"></div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h3>Plumbing Services</h3>
+      <div class="ba">
+        <div class="shot before"><div class="tag">Before — Desktop</div><img src="screenshots/original/plumbing-services_desktop.png" alt="Plumbing Services — original desktop"></div>
+        <div class="shot after"><div class="tag">After — Desktop</div><img src="screenshots/redesign/plumbing-services_desktop.png" alt="Plumbing Services — redesign desktop"></div>
+        <div class="shot before"><div class="tag">Before — Mobile</div><img src="screenshots/original/plumbing-services_mobile.png" alt="Plumbing Services — original mobile"></div>
+        <div class="shot after"><div class="tag">After — Mobile</div><img src="screenshots/redesign/plumbing-services_desktop.png" alt="Plumbing Services — redesign mobile"></div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h3>Gas Boiler Services</h3>
+      <div class="ba">
+        <div class="shot before"><div class="tag">Before — Desktop</div><img src="screenshots/original/gas-boiler-services_desktop.png" alt="Gas Boiler Services — original desktop"></div>
+        <div class="shot after"><div class="tag">After — Desktop</div><img src="screenshots/redesign/gas-boiler-services_desktop.png" alt="Gas Boiler Services — redesign desktop"></div>
+        <div class="shot before"><div class="tag">Before — Mobile</div><img src="screenshots/original/gas-boiler-services_mobile.png" alt="Gas Boiler Services — original mobile"></div>
+        <div class="shot after"><div class="tag">After — Mobile</div><img src="screenshots/redesign/gas-boiler-services_desktop.png" alt="Gas Boiler Services — redesign mobile"></div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h3>Contact</h3>
+      <div class="ba">
+        <div class="shot before"><div class="tag">Before — Desktop</div><img src="screenshots/original/contact_desktop.png" alt="Contact — original desktop"></div>
+        <div class="shot after"><div class="tag">After — Desktop</div><img src="screenshots/redesign/contact_desktop.png" alt="Contact — redesign desktop"></div>
+        <div class="shot before"><div class="tag">Before — Mobile</div><img src="screenshots/original/contact_mobile.png" alt="Contact — original mobile"></div>
+        <div class="shot after"><div class="tag">After — Mobile</div><img src="screenshots/redesign/contact_desktop.png" alt="Contact — redesign mobile"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Redesign report for The Lucky Plumber · generated by <code>/site-redesign</code> · 2026-06-30</div>
+</footer>
+
+</body>
+</html>
