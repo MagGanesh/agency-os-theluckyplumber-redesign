@@ -42,21 +42,16 @@ export default function Nav() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 flex-shrink-0">
+            <Link href="/" className="flex items-center flex-shrink-0">
               <Image
                 src="/logo.png"
                 alt="The Lucky Plumber"
-                width={56}
-                height={56}
-                className="object-contain min-w-[40px]"
+                width={100}
+                height={39}
+                className="object-contain"
                 priority
+                unoptimized
               />
-              <span
-                className="hidden sm:block font-extrabold text-base leading-tight"
-                style={{ color: "#1B3A5C", fontFamily: "var(--font-montserrat)" }}
-              >
-                The Lucky<br />Plumber
-              </span>
             </Link>
 
             {/* Desktop nav */}
