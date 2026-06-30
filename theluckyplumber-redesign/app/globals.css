@@ -1,0 +1,139 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy: #1B3A5C;
+  --color-navy-dark: #0F2640;
+  --color-navy-mid: #243F65;
+  --color-gold: #C49A1A;
+  --color-gold-light: #D4AA2A;
+  --color-gold-dim: #A07F14;
+  --color-off-white: #F4F3F0;
+  --color-near-black: #1C1C1E;
+  --color-muted: #6B7280;
+
+  --font-heading: var(--font-montserrat);
+  --font-body: var(--font-inter);
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #1C1C1E;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-montserrat), system-ui, sans-serif;
+}
+
+/* Hero texture pattern */
+.hero-pattern {
+  background-color: #1B3A5C;
+  background-image:
+    linear-gradient(135deg, rgba(196, 154, 26, 0.06) 25%, transparent 25%),
+    linear-gradient(225deg, rgba(196, 154, 26, 0.06) 25%, transparent 25%),
+    linear-gradient(315deg, rgba(196, 154, 26, 0.06) 25%, transparent 25%),
+    linear-gradient(45deg, rgba(196, 154, 26, 0.06) 25%, transparent 25%);
+  background-size: 60px 60px;
+}
+
+.hero-pattern-sm {
+  background-color: #1B3A5C;
+  background-image:
+    linear-gradient(135deg, rgba(196, 154, 26, 0.05) 25%, transparent 25%),
+    linear-gradient(225deg, rgba(196, 154, 26, 0.05) 25%, transparent 25%),
+    linear-gradient(315deg, rgba(196, 154, 26, 0.05) 25%, transparent 25%),
+    linear-gradient(45deg, rgba(196, 154, 26, 0.05) 25%, transparent 25%);
+  background-size: 40px 40px;
+}
+
+/* Gold underline accent */
+.gold-underline {
+  position: relative;
+  display: inline-block;
+}
+.gold-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 60px;
+  height: 3px;
+  background: #C49A1A;
+}
+
+/* Fade-in animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-up {
+  animation: fadeUp 0.6s ease forwards;
+}
+.fade-up-1 { animation-delay: 0.1s; opacity: 0; }
+.fade-up-2 { animation-delay: 0.2s; opacity: 0; }
+.fade-up-3 { animation-delay: 0.3s; opacity: 0; }
+.fade-up-4 { animation-delay: 0.4s; opacity: 0; }
+
+/* Service card hover */
+.service-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.service-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(27, 58, 92, 0.12);
+  border-color: #C49A1A;
+}
+
+/* Gold CTA button */
+.btn-gold {
+  background-color: #C49A1A;
+  color: #fff;
+  font-family: var(--font-montserrat), system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+.btn-gold:hover {
+  background-color: #D4AA2A;
+  transform: translateY(-1px);
+}
+.btn-gold:active {
+  transform: translateY(0);
+}
+
+/* Outline button */
+.btn-outline {
+  border: 2px solid #fff;
+  color: #fff;
+  font-family: var(--font-montserrat), system-ui, sans-serif;
+  font-weight: 600;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.btn-outline:hover {
+  background-color: rgba(255,255,255,0.12);
+}
+
+/* Area pill */
+.area-pill {
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.area-pill:hover {
+  background-color: #C49A1A;
+  color: #fff;
+}
